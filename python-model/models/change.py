@@ -1,8 +1,5 @@
-import tensorflowjs as tfjs
-
-# Load your existing Keras model
-from tensorflow.keras.models import load_model
-model = load_model('hotdog_not_hotdog.keras')
-
-# Convert and save as TensorFlow.js format
-tfjs.converters.save_keras_model(model, 'output_directory/')
+from pathlib import Path
+import tensorflow as tf
+model = tf.keras.applications.MobileNetV3Large(input_shape=(224, 224, 3))
+export_path = Path.cwd() / "saved_models" / "MobileNetV3Large"
+model.save(export_path)

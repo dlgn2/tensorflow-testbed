@@ -3,6 +3,8 @@ import tensorflow as tf
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.callbacks import EarlyStopping
 from model import build_model
+print(tf.__version__)
+
 
 def calculate_steps(num_samples, batch_size):
     return (num_samples + batch_size - 1) // batch_size
@@ -12,7 +14,7 @@ def main():
     train_dir = './dataset/train'
     val_dir = './dataset/validation'
     target_size = (150, 150)
-    batch_size = 498  # Consider adjusting if computational resources allow
+    batch_size = 16  # Consider adjusting if computational resources allow
 
     train_datagen = ImageDataGenerator(
         rescale=1./255,
@@ -39,7 +41,7 @@ def main():
     model = build_model((150, 150, 3))
     early_stopping = EarlyStopping(monitor='val_loss', patience=5, verbose=1)
 
-    for epoch in range(5):  # Adjust based on when you see performance plateau
+    for epoch in range(200):  # Adjust based on when you see performance plateau
         print(f"Starting Epoch {epoch+1}")
         model.fit(
             x=train_generator,
@@ -53,7 +55,7 @@ def main():
         validation_generator.on_epoch_end()
 
     # Save the model in Keras format to avoid compatibility issues
-    model.save('hotdog_not_hotdog.keras')
+    model.save('hotdog_not_hotdog.h5')
 
     print(model.summary())
 

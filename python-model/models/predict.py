@@ -15,9 +15,10 @@ def predict(model_path, image_path):
     return prediction[0][0]
 
 if __name__ == '__main__':
-    model_path = 'models/hotdog_not_hotdog.keras'
-    image_path = 'path/to/your/image.jpg'
+    model_path = 'hotdog_not_hotdog.h5'
+    image_path = 'dataset/h2.jpg'
     prediction = predict(model_path, image_path)
+    print(f"Prediction: {prediction}")
     if prediction > 0.5:
         print("It's a hotdog!")
     else:
